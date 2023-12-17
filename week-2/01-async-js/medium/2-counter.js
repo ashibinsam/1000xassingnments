@@ -12,17 +12,9 @@ function oneSec(fn) {
         },1000);
     });
 }
-modules.exports = {oneSec}
+module.exports = { oneSec }
 
-async function consoleCounter() {
-    while(true) {
-        console.log(await oneSec());
-    }
-    
-    
-}
 
-consoleCounter();
 
 
 

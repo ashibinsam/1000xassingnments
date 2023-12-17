@@ -56,10 +56,5 @@ function removeSpaces(str) {
     console.log('After cleaning:');
     console.log(await rd.readFileApi('/home/shibin/1000xassingnments/week-2/01-async-js/easy/test.txt'));
 
-
-    
-    
-
-
 })();
 

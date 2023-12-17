@@ -18,13 +18,14 @@ function readFileApi(fileName) {
         });
     });
 }
+module.exports = { readFileApi }
 
 // Calling the readFileApi by an async function.
 
 async function read1counter() {
     //catching file errors using try catch
     try{
-        let fileContents = await readFileApi('3-counter.md');
+        let fileContents = await readFileApi('2-clock.md');
         console.log(fileContents);
     }
     catch(err) {

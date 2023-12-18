@@ -8,7 +8,7 @@ function sleep(milliseconds) {
     
     return new Promise((resolve)=> {
         const prevTime = Date.now();
-        while(Date.now() - prevTime <= milliseconds){}
+        while(Date.now() - prevTime <= milliseconds);  //executes the loop while the time does not exceed the given milliSeconds.
         resolve();
 
     });

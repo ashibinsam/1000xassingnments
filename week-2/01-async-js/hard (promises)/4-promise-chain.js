@@ -19,12 +19,10 @@ function wait3(t) {
 
 function calculateTime(t1, t2, t3) {
     const prevTime = Date.now();
-    return wait1(t1)
+    return wait1(t1)                        //calling .then back to back to form Promise chaining int he calling side
         .then(()=>wait2(t2))
         .then(()=>wait3(t3))
-        .then(()=>{
-            return Date.now()-prevTime;
-        });
+        .then(()=>Date.now()-prevTime);
 }
 
 module.exports = calculateTime;

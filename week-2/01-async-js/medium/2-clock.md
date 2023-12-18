@@ -21,7 +21,7 @@ function timeGenerator() {
 
 (async ()=> {
     while(true) {
-        await time.oneSec(timeGenerator);
+        await time.oneSec(timeGenerator);``
     }
     
 })();

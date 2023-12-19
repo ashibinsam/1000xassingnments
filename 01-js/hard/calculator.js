@@ -50,17 +50,22 @@ class Calculator {
   }
   
   claculate(calcString) {
-
-    let calcArray = calcString.replace(/[^0-9\+-*/]/g, '').split(/([0-9])/);
-    =
+    let calcArray = calcString.replace(/[^0-9+\-*/]/g, '').split(/([0-9+\-*/])/).filter(Boolean); //filter function removes the space created by the split function as the space is a falsely value, it filters out space
     console.log(calcArray);
 
-    let numbers=[], operators=[];
-    cal
-    for(element of calcArray) {
+    let result=0;
+    for(let itr=0; itr<calcArray.length; itr++){
+      switch(calcArray[itr]) {
+        case '+':
+          result += calcArray[itr];
+          break;
+        case '-':
+          result -= calcArray[itr];
+          break;
+      }
     }
   }
-}
+}``
 
 let clac = new Calculator();
 clac.claculate("5+8     sadflkj *5")

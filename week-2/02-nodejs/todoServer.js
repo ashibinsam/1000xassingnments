@@ -35,15 +35,94 @@
     Response: 200 OK if the todo item was found and deleted, or 404 Not Found if not found.
     Example: DELETE http://localhost:3000/todos/123
 
-    - For any other route not defined in the server return 404
+    - For any other route not defined i
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
   const express = require('express');
   const bodyParser = require('body-parser');
+  const jwt = require('jsonwebtoken');
+  const fs = require('fs');
   
   const app = express();
   
-  app.use(bodyParser.json());
+  const jwtKey = '12345'
+  const port = 3030;
+  let todoDatabase = [];
+  let id =1;
+
+  function getIdIndex(arr, id) {
+    return arr.findIndex((element)=>element.id==id ? true:false)
+  }
+
+  async function readDatabase() {
+    let data = fs.readFile('todoServer.js','utf-8',).then((err,data)=>{
+      
+    });
+    console.log(data);
+  }
+  readFile('todos.js')
   
+  app.use(bodyParser.json())
+  
+  app.get('/todos', (req, res)=>{
+    res.status(200).send(todoDatabase);
+  });
+
+  app.get('/todos/:id', (req, res)=>{
+    let element = todoDatabase.find((element)=>{
+      return element.id == req.params.id ? true :false;
+    })
+    if(!element){
+          res.status(404).send();
+          return;
+    }
+    res.status(200).json(element);
+  })
+
+  app.post('/todos', (req,res)=>{
+    const data = req.body;
+    const title = data.title;
+    data.id = id;
+    todoDatabase.push(data);
+    res.status(201).json({
+      message:'TODO successfully stored',
+      id
+    })
+    id++;
+
+  })
+
+  app.put('/todos/:id', (req, res)=>{
+    let id = req.params.id;
+    index = getIdIndex(todoDatabase, id);
+    let dataToStore = req.body;
+    if(index!=-1) {
+      dataToStore.id = todoDatabase[index].id; 
+      todoDatabase[index] = req.body;
+      res.status(200).json({
+        message:'stored successfully'
+      })
+      return;
+    }
+
+    res.status(404).send();
+  })
+
+  app.delete('/todos/:id',(req,res)=>{
+    let id = parseInt(req.params.id);
+    index = getIdIndex(todoDatabase, id);
+    console.log(id, index);
+    if(index != -1) {
+      todoDatabase.splice(index,1);
+      res.status(200).send();
+      return;
+    }
+    res.status(404).send();
+  })
+
+  app.listen(port, ()=>{
+    console.log('server started successfully');
+  })
   module.exports = app;
+
